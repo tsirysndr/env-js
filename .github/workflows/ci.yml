@@ -16,6 +16,7 @@ jobs:
         run: |
           fluentci run deno_pipeline fmt lint test
   publish:
+    needs: tests
     runs-on: ubuntu-latest
     permissions:
       contents: read
