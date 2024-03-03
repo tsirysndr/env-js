@@ -4,6 +4,7 @@ declare var process: any;
 
 /**
  * Get the environment variable value
+ *
  * @example
  * ```ts
  * import * as env from "jsr:@tsirysndr/env-js";
