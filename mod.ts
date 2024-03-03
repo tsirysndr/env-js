@@ -1,7 +1,6 @@
 // deno-lint-ignore-file no-var no-explicit-any
 declare var Bun: any;
 declare var process: any;
-declare var global: any;
 
 /**
  * Get the environment variable value
@@ -12,15 +11,15 @@ declare var global: any;
  * console.log(env.get("HOME")); // /home/user
  */
 export function get(key: string): string | undefined {
-  if (global && global.Bun) {
+  if (Object.keys(globalThis).includes("Bun")) {
     return Bun.env[key];
   }
 
-  if (global && global.process) {
+  if (Object.keys(globalThis).includes("process")) {
     return process.env[key];
   }
 
-  if (window && window.Deno) {
+  if (Object.keys(globalThis).includes("Deno")) {
     return Deno.env.get(key);
   }
 
@@ -37,15 +36,15 @@ export function get(key: string): string | undefined {
  * ```
  */
 export function has(key: string): boolean {
-  if (global && global.Bun) {
+  if (Object.keys(globalThis).includes("Bun")) {
     return !!Bun.env[key];
   }
 
-  if (global && global.process) {
+  if (Object.keys(globalThis).includes("process")) {
     return !!process.env[key];
   }
 
-  if (window && window.Deno) {
+  if (Object.keys(globalThis).includes("Deno")) {
     return Deno.env.has(key);
   }
 
