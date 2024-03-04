@@ -50,3 +50,28 @@ export function has(key: string): boolean {
 
   return false;
 }
+
+/**
+ * Convert the environment variables to an object
+ *
+ * @example
+ * ```ts
+ * import * as env from "jsr:@tsirysndr/env-js";
+ * console.log(env.toObject());
+ * ```
+ */
+export function toObject(): Record<string, string> {
+  if (Object.keys(globalThis).includes("Bun")) {
+    return Bun.env;
+  }
+
+  if (Object.keys(globalThis).includes("process")) {
+    return process.env;
+  }
+
+  if (Object.keys(globalThis).includes("Deno")) {
+    return Deno.env.toObject();
+  }
+
+  return {};
+}
